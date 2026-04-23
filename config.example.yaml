@@ -1,0 +1,86 @@
+# JobScout — Example User Configuration
+# Copy to ~/.config/jobscout/config.yaml and fill in your details.
+# All personally identifiable information lives here, not in the codebase.
+
+candidate:
+  first_name: Jane
+  last_name: Doe
+  email: jane.doe@example.com
+  phone: "5551234567"
+  phone_formatted: "555-123-4567"
+  phone_country: "United States (+1)"
+  linkedin: https://www.linkedin.com/in/janedoe
+  location: "San Francisco, CA"
+  city: San Francisco
+  state: California
+  country: United States
+  website: https://janedoe.dev
+  years_experience: "15"
+  salary_expectation: "200000"
+  authorized_us: "Yes"
+  needs_sponsorship: "No"
+  gender: "Prefer not to say"
+  race: "Prefer not to say"
+  veteran: "I don't wish to answer"
+  disability: "I don't wish to answer"
+  application_disclosure: >-
+    This application was submitted using JobScout, an open-source automated
+    job search pipeline. Every match was reviewed and every decision was made
+    by the candidate.
+
+# Search queries per portal — rotated hourly
+queries:
+  linkedin:
+    - '"VP of Engineering" remote'
+    - '"Head of Engineering" startup'
+  indeed:
+    - "VP of Engineering"
+    - "Head of Engineering"
+  monster:
+    - "VP of Engineering"
+    - "CTO"
+  reddit:
+    - "VP of Engineering"
+    - "Head of Engineering"
+  subreddits:
+    - ExperiencedDevs
+    - startupjobs
+    - hiring
+
+# Maps archetype keys to resume filenames in sources/
+resume_map:
+  default: resume.html
+  # healthcare: resume_healthcare.html
+  # vpeng: resume_vpeng.html
+
+# Company seeds for career page API scrapers (Greenhouse, Ashby, Lever)
+company_seeds:
+  greenhouse:
+    - {slug: stripe, name: Stripe}
+    - {slug: figma, name: Figma}
+  ashby:
+    - {slug: openai, name: OpenAI}
+    - {slug: notion, name: Notion}
+  lever:
+    - {slug: plaid, name: Plaid}
+
+# Candidate profile summary — used by the scoring LLM to evaluate job fit
+profile_summary: |
+  Engineering leader with 15 years of experience building and scaling teams.
+  Strong background in distributed systems and cloud infrastructure.
+
+  TITLES THAT FIT:
+  VP of Engineering, Head of Engineering, CTO
+
+  LOCATION: San Francisco, CA. Open to remote.
+
+  TECHNICAL: Python, Go, Java, Postgres, Kafka, AWS, Kubernetes
+
+notifications:
+  imessage_phone: "+15551234567"
+  pigeon_project: jobscout
+
+# Cloudflare KV (optional — for cloud-scheduled runs)
+cloudflare:
+  account_id: ""
+  kv_namespace_id: ""

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>JobScout Report — {{ timestamp }}</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+               background: #0a0a0a; color: #e0e0e0; padding: 20px; max-width: 700px; margin: 0 auto; }
+        h1 { font-size: 1.4rem; margin-bottom: 4px; color: #fff; }
+        .subtitle { color: #888; font-size: 0.85rem; margin-bottom: 24px; }
+        .job { background: #1a1a1a; border: 1px solid #333; border-radius: 12px;
+               padding: 16px; margin-bottom: 16px; }
+        .job:hover { border-color: #555; }
+        .stars { font-size: 1.2rem; margin-bottom: 4px; }
+        .star-5 .stars { color: #f59e0b; }
+        .star-4 .stars { color: #a3e635; }
+        .star-3 .stars { color: #60a5fa; }
+        .job-title { font-size: 1.1rem; font-weight: 600; color: #fff; }
+        .job-title a { color: #60a5fa; text-decoration: none; }
+        .job-title a:hover { text-decoration: underline; }
+        .company { color: #ccc; font-size: 0.95rem; }
+        .meta { color: #888; font-size: 0.8rem; margin-top: 6px; }
+        .tags { margin-top: 8px; }
+        .tag { display: inline-block; background: #2a2a2a; color: #aaa; border-radius: 6px;
+               padding: 2px 8px; font-size: 0.75rem; margin-right: 4px; margin-bottom: 4px; }
+        .desc { color: #bbb; font-size: 0.85rem; margin-top: 8px; line-height: 1.4; }
+        .resume-badge { color: #10b981; font-size: 0.75rem; margin-top: 6px; }
+        .empty { text-align: center; color: #666; padding: 40px; }
+    </style>
+</head>
+<body>
+    <h1>JobScout Report</h1>
+    <p class="subtitle">{{ timestamp }} · {{ jobs|length }} role{{ "s" if jobs|length != 1 }} found</p>
+
+    {% if jobs %}
+    {% for job in jobs %}
+    <div class="job star-{{ job.star_rating }}">
+        <div class="stars">{{ "★" * job.star_rating }}{{ "☆" * (5 - job.star_rating) }} ({{ job.score }})</div>
+        <div class="job-title"><a href="{{ job.url }}" target="_blank">{{ job.title }}</a></div>
+        <div class="company">{{ job.company }} · {{ job.location }}</div>
+        {% if job.extracted %}
+        <div class="meta">{{ job.extracted.get("company_stage", "") }} · {{ job.extracted.get("industry", "") }}</div>
+        <div class="desc">{{ job.extracted.get("description", "") }}</div>
+        {% if job.extracted.get("signals") %}
+        <div class="tags">
+            {% for signal in job.extracted.get("signals", []) %}
+            <span class="tag">{{ signal }}</span>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endif %}
+        <div class="resume-badge">Resume: {{ job.resume_used or "default" }}</div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <div class="empty">No new matches this hour.</div>
+    {% endif %}
+</body>
+</html>

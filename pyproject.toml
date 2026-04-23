@@ -1,0 +1,31 @@
+[project]
+name = "jobscout"
+version = "0.1.0"
+description = "Automated job search pipeline — scrape, score, tune, and apply"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+dependencies = [
+    "anthropic>=0.68.0",
+    "google-generativeai>=0.8.0",
+    "openai>=1.0.0",
+    "playwright>=1.55.0",
+    "patchright>=1.0.0",
+    "httpx>=0.28.0",
+    "beautifulsoup4>=4.12.0",
+    "Jinja2>=3.1.0",
+    "PyYAML>=6.0",
+]
+
+[project.scripts]
+jobscout = "jobscout.main:main"
+
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["jobscout*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
